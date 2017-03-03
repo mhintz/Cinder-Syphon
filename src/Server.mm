@@ -52,11 +52,11 @@ std::string Server::getName()
 
 void Server::publishScreen()
 {
-	ci::gl::TextureRef mTex = ci::gl::Texture::create( ci::app::copyWindowSurface() );
-	this->publishTexture( mTex );
+	ci::gl::TextureRef mTex = ci::gl::Texture::create(ci::app::copyWindowSurface());
+	this->publishTexture(mTex);
 }
 
-void Server::publishTexture( ci::gl::TextureRef texture )
+void Server::publishTexture( ci::gl::TextureRef texture, bool flipped )
 {
 	if( texture ) {
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
@@ -70,7 +70,7 @@ void Server::publishTexture( ci::gl::TextureRef texture )
     [(SyphonServer *)mServer publishFrameTexture: texID
                                    textureTarget: texture->getTarget()
                                      imageRegion: NSMakeRect( 0, 0, texture->getWidth(), texture->getHeight() )
-                               textureDimensions: NSMakeSize( texture->getWidth(), texture->getHeight() ) flipped:true ];
+                               textureDimensions: NSMakeSize( texture->getWidth(), texture->getHeight() ) flipped:flipped ];
 
 		[pool drain];
 	} else {

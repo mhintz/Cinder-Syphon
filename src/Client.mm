@@ -83,6 +83,31 @@ void Client::setServerName( const std::string& serverName )
     }    
 }
 
+bool Client::hasNewFrame() {
+    return mSetup && [[(SyphonNameboundClient *)mClient client] hasNewFrame];
+}
+
+ci::gl::TextureRef Client::fetchFrame() {
+    @autoreleasepool {
+        if (mSetup) {
+            [(SyphonNameboundClient *)mClient lockClient];
+            SyphonClient * client = [(SyphonNameboundClient *)mClient client];
+
+            mLatestImage = [client newFrameImageForContext:CGLGetCurrentContext()];
+            NSSize texSize = [(SyphonImage*)mLatestImage textureSize];
+            GLuint m_id = [(SyphonImage*)mLatestImage textureName];
+
+            mTex = ci::gl::Texture::create( GL_TEXTURE_RECTANGLE_ARB, m_id, texSize.width, texSize.height, true );
+
+            return mTex;
+        } else {
+            std::cout << "Client is not setup, or is not properly connected to server. Cannot fetch frame." << std::endl;
+
+            return nullptr;
+        }
+    }
+}
+
 void Client::bind()
 {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];

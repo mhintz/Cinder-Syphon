@@ -24,6 +24,9 @@ public:
     
 	void setApplicationName( const std::string& appName );
     void setServerName( const std::string& serverName );
+
+    bool hasNewFrame();
+    ci::gl::TextureRef fetchFrame();
 	
     void bind();
     void unbind();

@@ -4,6 +4,8 @@ Yet another fork of Cinder-Syphon
 
 An implementation of the Syphon framework for Cinder, including changes made by several authors. Syphon is by Tom Butterworth and Anton Marini, initial work by Anthony Stellato, API upgrades by Reza Ali, Syphon fixes by gaborpapp on Github, synthesis by Mark Hintz.
 
+Basically, Reza's fork has the API I needed, but it didn't work quite right. gaborpapp's code was working, but didn't have the right API. This brings them together.
+
 Objects:
 
 Syphon Client - Receive frames from a Syphon server
